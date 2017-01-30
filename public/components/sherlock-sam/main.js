@@ -13,7 +13,7 @@ var latest_card = null;
 var logging_configs = [
   {url: 'http://logger.cenode.io/cards/sherlockSam', logged_cards: []},
   {url: 'http://logger2.cenode.io/cards/sherlockSam', logged_cards: []},
-  {url: 'http://localhost:8080/cards/sherlockSam', logged_cards: []}
+  // {url: '/cards/sherlockSam', logged_cards: []}
 ];
 
 var SHERLOCK_CORE = [
@@ -254,7 +254,7 @@ function login(e){
   update_ui();
   load_questions();//fetch_questions();
   poll_for_instances();
-  for(var i = 0; i < logging_configs.length; i++){
+  for (var i = 0; i < logging_configs.length; i++) {
     log_cards(logging_configs[i]);
   }
 }

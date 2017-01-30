@@ -1,18 +1,19 @@
 {
-  "name"         : "sherlock",
-  "version"      : "0.0.0",
-  "description"  : "",
-  "main"         : "server.js",
-  "author"       : "Anna Thomas",
-  "dependencies" : {
-    "express"         : "~4.6.1",
-    "mongoose"        : "~3.8.13",
-    "morgan"          : "~1.1.1",
-    "body-parser"     : "~1.4.3",
-    "method-override" : "~2.1.1"
+  "name": "sherlock",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "author": "Anna Thomas",
+  "dependencies": {
+    "body-parser": "~1.4.3",
+    "cfenv": "^1.0.3",
+    "express": "~4.6.1",
+    "method-override": "~2.1.1",
+    "mongoose": "~3.8.13",
+    "morgan": "~1.1.1"
   },
-  "scripts" : {
-    "startForever" : "forever start server.js",
-    "stopForever"  : "forever stop"
- }
+  "scripts": {
+    "startForever": "forever start server.js",
+    "stopForever": "forever stop"
+  }
 }

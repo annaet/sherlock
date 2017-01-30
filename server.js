@@ -1,11 +1,14 @@
 'use strict';
 
 // set up ========================
+var cfenv = require('cfenv');
 var express  = require('express');
 var app      = express();                               // create our app w/ express
 var morgan = require('morgan');             // log requests to the console (express4)
 var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+
+var server = require('http').Server(app);
 
 // configuration =================
 
@@ -49,6 +52,10 @@ app.get('*', function(req, res) {
     res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 });
 
-// listen (start app with node server.js) ======================================
-app.listen(9000);
-console.log("App listening on port 9000");
+// get the app environment from Cloud Foundry
+var appEnv = cfenv.getAppEnv();
+
+// start server on the specified port and binding host
+server.listen(appEnv.port, function() {
+  console.log("server starting on " + appEnv.url);
+});
