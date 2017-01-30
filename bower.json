@@ -1,0 +1,21 @@
+{
+  "name": "sherlock",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-vertilize": "~1.0.1",
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "^1.3.2"
+  }
+}

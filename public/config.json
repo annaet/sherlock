@@ -1,0 +1,161 @@
+{
+  "title": "Sherlock",
+  "gameConfig": {
+    "numTicks": 10,
+    "tickLength": 60,
+    "numCameras": 12,
+    "cameraLimit": 4,
+    "colourCameraCost": 2,
+    "blackAndWhiteCameraCost": 1,
+    "costLimit": 4,
+    "cameraSelectionOptions": ["auto", "random", "manual", "autoOverride"]
+  },
+  "gameElements": {
+    "objectTypes": [
+      "character",
+      "fruit",
+      "sport"
+    ],
+    "objects": {
+      "elephant": {
+        "type": "animal",
+        "url": "animals/image1-small-12.png"
+      },
+      "giraffe": {
+        "type": "animal",
+        "url": "animals/image5-small-20.png"
+      },
+      "hippopotamus": {
+        "type": "animal",
+        "url": "animals/image10-small-30.png"
+      },
+      "lion": {
+        "type": "animal",
+        "url": "animals/image14-small-38.png"
+      },
+      "leopard": {
+        "type": "animal",
+        "url": "animals/image19-small-48.png"
+      },
+      "zebra": {
+        "type": "animal",
+        "url": "animals/image24-small-58.png"
+      },
+      "elephant_hat": {
+        "type": "hat",
+        "url": "hats/elephant_hat.png"
+      },
+      "giraffe_hat": {
+        "type": "hat",
+        "url": "hats/giraffe_hat.png"
+      },
+      "hippopotamus_hat": {
+        "type": "hat",
+        "url": "hats/hippo_hat.png"
+      },
+      "lion_hat": {
+        "type": "hat",
+        "url": "hats/lion_hat.png"
+      },
+      "leopard_hat": {
+        "type": "hat",
+        "url": "hats/cheetah_hat.png"
+      },
+      "zebra_hat": {
+        "type": "hat",
+        "url": "hats/zebra_hat.png"
+      },
+      "sgt stork": {
+        "type": "character",
+        "url": "image1.png"
+      },
+      "dr finch": {
+        "type": "character",
+        "url": "image2.png"
+      },
+      "rev hawk": {
+        "type": "character",
+        "url": "image3.png"
+      },
+      "col robin": {
+        "type": "character",
+        "url": "image4.png"
+      },
+      "capt falcon": {
+        "type": "character",
+        "url": "image5.png"
+      },
+      "prof crane": {
+        "type": "character",
+        "url": "image6.png"
+      },
+      "banana": {
+        "type": "fruit",
+        "url": "fruit/image9-27.png"
+      },
+      "orange": {
+        "type": "fruit",
+        "url": "fruit/image2-13.png"
+      },
+      "pineapple": {
+        "type": "fruit",
+        "url": "fruit/image13-35.png"
+      },
+      "lemon": {
+        "type": "fruit",
+        "url": "fruit/image16-41.png"
+      },
+      "pear": {
+        "type": "fruit",
+        "url": "fruit/image21-51.png"
+      },
+      "apple": {
+        "type": "fruit",
+        "url": "fruit/image26-61.png"
+      },
+      "tennis": {
+        "type": "sport",
+        "url": "sport/image4-17.png"
+      },
+      "rugby": {
+        "type": "sport",
+        "url": "sport/image8-25.png"
+      },
+      "football": {
+        "type": "sport",
+        "url": "sport/image12-33.png"
+      },
+      "golf": {
+        "type": "sport",
+        "url": "sport/image17-43.png"
+      },
+      "basketball": {
+        "type": "sport",
+        "url": "sport/image23-55.png"
+      },
+      "cricket": {
+        "type": "sport",
+        "url": "sport/image27-63.png"
+      }
+    },
+    "locations": [{
+      "name": "ruby",
+      "url": "red"
+    }, {
+      "name": "sapphire",
+      "url": "blue"
+    }, {
+      "name": "gold",
+      "url": "yellow"
+    }, {
+      "name": "amber",
+      "url": "orange"
+    }, {
+      "name": "emerald",
+      "url": "green"
+    }, {
+      "name": "silver",
+      "url": "grey"
+    }]
+  }
+}

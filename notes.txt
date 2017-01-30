@@ -1,0 +1,30 @@
+Sherlock
+
+Game concept:
+
+- Game lasts 20 ticks
+- Each tick lasts a certain length of time (eg. 20 seconds)
+- Each tick is a single turn for the player
+- Each tick the player can choose up to 2 cameras to view
+- There are hot ticks and cold ticks
+- Cold ticks only show the location
+- Hot ticks show the location + some objects
+- Objects can include characters/fruit/sport
+- Each tick the player needs to choose cameras, survey the objects in the cameras and communicate the details of the scene to sherlock through chat
+
+Requirements:
+
+- JSON Config file
+- List of locations
+- Camera view area
+- Chat area
+- Info area to display characters/objects
+
+Todo:
+
+- Logger
+- Write game ticks (generate from script)
+- Decide on game config
+- Random/algorithm dictated camera selection (config flag)
+- Set up game ticks in CE
+- Create characters without tops as image so a user can't just change CSS to find out top colour

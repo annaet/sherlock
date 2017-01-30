@@ -1,0 +1,240 @@
+<!doctype html>
+<html ng-app="sherlock">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Sherlock</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+  <!-- Core -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chat.css" type="text/css"/>
+
+</head>
+<body ng-controller="sherlockController">
+  <div class="override">
+    <!-- Nav -->
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">{{config.title}}<small ng-show="cameraSelection !== cameraSelectionChoices.default"> : {{cameraSelection}}</small></a>
+      </div>
+    </nav>
+
+    <div class="fill">
+      <div class="wrapper">
+        <!-- Login -->
+        <div class="overlay" id="login_overlay">
+          <div class="row center">
+             <h1 class="main_title">SHERLOCK</h1>
+          </div>
+          <div class="row center">
+            <input class="username clear" id="login_username" placeholder="User ID" type="text" autofocus>
+            <div class="clear"></div>
+            <p style="display:none;color:rgb(220,220,220);font-weight:300;font-size:15px;" id="login_error">Please enter a User ID to continue.</p>
+            <div class="clear"></div>
+
+            <div>
+              <div class="btn-group" uib-dropdown is-open="status.isopen">
+                <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                  {{ cameraSelection }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                  <li role="menuitem" ng-click="setCameraSelection(cameraSelectionChoices.random)"><a href="#">{{ cameraSelectionChoices.random }}</a></li>
+                  <li role="menuitem" ng-click="setCameraSelection(cameraSelectionChoices.manual)"><a href="#">{{ cameraSelectionChoices.manual }}</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <button id="login" ng-disabled="cameraSelection === cameraSelectionChoices.default">Login</button>
+          </div>
+          <img src="/media/logo.jpg" class="attribution">
+        </div>
+
+        <!-- Main content -->
+        <div class="overlay" id="moira_overlay">
+          <div class="col-md-9 main-content" id="main-content">
+            <div class="two-thirds-height">
+              <!-- Buttons -->
+              <div class="camera-buttons">
+                <h2>Cameras</h2>
+
+                <div class="camera-lists">
+                  <div class="camera-list">
+                    <h4>RGB</h4>
+
+                    <button class="room-btn" ng-repeat="location in config.gameElements.locations" ng-click="setCamera(location, true)" ng-disabled="cameraDisabled(location, true)">
+                      {{location.name | capitalise}}
+                    </button>
+                  </div>
+
+                  <div class="camera-list">
+                    <h4>B&amp;W</h4>
+
+                    <button class="room-btn greyscale" ng-repeat="location in config.gameElements.locations" ng-click="setCamera(location, false)" ng-disabled="cameraDisabled(location, false)">
+                      {{location.name | capitalise}}
+                    </button>
+                  </div>
+                </div>
+
+                <div class="camera-info">
+                  <dl ng-show="maxCams">
+                    <dt>Maximum cameras</dt>
+                    <dd>{{maxCams}}</dd>
+                    <dt>Cost limit per turn</dt>
+                    <dd>{{costLimit}}</dd>
+                    <dt>B&amp;W camera cost</dt>
+                    <dd>{{bWCost}}</dd>
+                    <dt>Colour camera cost</dt>
+                    <dd>{{colourCost}}</dd>
+                  </dl>
+                </div>
+              </div>
+
+              <!-- Cameras -->
+              <div ng-repeat="camera in cameras" class="tile">
+                <div class="tile-inner" ng-if="camera.on">
+                  <h3 class="room-header" ng-style="camera.style">{{camera.location | capitalise}} Room</h3>
+
+                  <!-- ng-repeat config.gameElements.objectTypes -->
+                  <div class="room">
+                    <div class="room-sport">
+                      <img ng-if="camera.sport" ng-src="{{camera.sport}}" ng-class="{greyscale: !camera.colour}" />
+                    </div>
+                    <div class="room-character">
+                      <img ng-if="camera.hat" ng-src="{{camera.hat}}" ng-class="{greyscale: !camera.colour}" />
+                    </div>
+                    <div class="room-fruit">
+                      <img ng-if="camera.fruit" ng-src="{{camera.fruit}}" ng-class="{greyscale: !camera.colour}" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tile-inner" ng-if="!camera.on">
+                  <h2 ng-show="!disableCameras" class="vertical-align">Choose a room</h2>
+                  <h2 ng-show="disableCameras" class="vertical-align">Limit met</h2>
+                </div>
+              </div>
+            </div>
+
+            <!-- Characters -->
+            <div class="one-third-height">
+              <div class="character-reference">
+                <h2>Characters</h2>
+
+                <div class="characters">
+                  <div class="character" ng-attr-id="{{'character-' + name.replace(' ', '-')}}" ng-repeat="(name, character) in config.gameElements.objects" ng-if="character.type === 'animal'">
+                    <img class="character-face" ng-src="i/{{character.url}}">
+                    <div class="character-name">{{name | capitalise}}</div>
+                    <div class="characters-last-seen">
+                      <div class="last-seen-box last-seen-sport">
+                        <img class="last-seen-img" ng-src="{{character.sport}}">
+                      </div>
+                      <div class="last-seen-box last-seen-shirt" ng-style="character.hat"></div>
+                      <div class="last-seen-box last-seen-fruit">
+                        <img class="last-seen-img" ng-src="{{character.fruit}}">
+                      </div>
+                      <div class="last-seen-room" ng-style="{{name}}_style">
+                        {{character.room}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="col-md-3 sidebar">
+            <div class="game-info" ng-if="!game.started && !game.ended">
+              <button class="game-btn" ng-click="startGame()">Begin Game</button>
+            </div>
+            <div class="game-info" ng-if="game.started">
+              <h4>Turn: {{turn}} / {{maxTurns - 1}}</h4>
+              <h4>Time remaining: {{timeRemaining}}</h4>
+              <button class="game-btn" ng-click="nextTurn()">Next turn</button>
+            </div>
+            <div class="game-info" ng-if="game.ended">
+              <button class="game-btn" ng-click="startGame()">Restart?</button>
+            </div>
+
+            <!-- Chat -->
+            <section id="chat" class="chat-section" ng-class="{disabled: !game.started}">
+              <ul id="cards"><!-- <div id="score"></div> --></ul>
+              <div style="height:20px;">
+                <div style="text-align:right;margin-right:1%;display:inline-block;float:right;">
+                  <input id="autofill" type="checkbox" checked="checked"/><span style="margin-left:5px;">Input suggestions</span>
+                </div>
+                <div style="text-align:left;margin-left:1%;display:inline-block;float:left;">
+                  <div id="online_status" class="status"></div>
+                </div>
+              </div>
+              <div id="text_input_area">
+                <textarea id="text" placeholder="Enter your message..." ng-disabled="!game.started"></textarea>
+                <textarea id="guess" readonly></textarea>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <script type="text/ng-template" id="questionContent.html">
+      <div class="modal-header">
+        <h3 class="modal-title">Who is the most elusive character?</h3>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li ng-repeat="(name, character) in objects" ng-if="character.type === 'animal'">
+            <a href="#" ng-click="ok(name)">{{ name | capitalise }}</a>
+          </li>
+        </ul>
+      </div>
+    </script>
+  </div>
+
+  <div>
+    <script type="text/ng-template" id="scoreContent.html">
+      <div class="modal-header">
+        <h3 class="modal-title">Score</h3>
+      </div>
+      <div class="modal-body">
+        <h1>{{ score }}</h1>
+
+        <ul>
+          <li>1 point per correct answer</li>
+          <li>1 point per location per turn</li>
+          <li>10 points for bonus question</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+      </div>
+    </script>
+  </div>
+
+  <!-- JQuery, Bootstrap, Angular -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-vertilize/angular-vertilize.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+  <!-- CENode -->
+  <script src="http://cenode.io/cenode.js"></script>
+
+  <!-- Sherlock Sam -->
+  <!-- <script src="components/sherlock-sam/chat.js"></script> -->
+  <script src="components/sherlock-sam/main.js"></script>
+
+  <!-- Core -->
+  <script src="js/app.js"></script>
+  <!-- <script src="js/sherlockCore.js"></script> -->
+
+</body>
+</html>
